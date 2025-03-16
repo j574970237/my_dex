@@ -105,4 +105,18 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.31ms (1.74ms CPU 
 Ran 1 test suite in 105.70ms (6.31ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
 
+## 补充说明
 
+核心技术目标: 
+
+解决去中心化交易所（DEX）独立部署场景下的智能合约版本兼容性问题。
+
+具体技术挑战在于：
+
+当开发者在不同Solidity编译器版本环境下修改Pair合约代码并重新编译时，合约字节码的哈希值会发生变动，这将直接导致Factory合约的createPair()函数执行失败，因其依赖固定的Pair合约哈希进行地址预测和合约部署验证。
+
+关键问题分解：
+
+编译器版本差异：开发环境存在多个Solidity编译器版本(v0.5.x/v0.8.x)
+哈希一致性要求：createPair操作依赖预先计算的Pair合约字节码哈希
+部署验证机制：Factory合约通过keccak256(bytecode)验证Pair合约的合法性
