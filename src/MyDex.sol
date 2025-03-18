@@ -24,7 +24,7 @@ contract MyDex is IDex {
         uint256 amount = IERC20(buyToken).balanceOf(msg.sender);
         amounts = router.swapExactETHForTokens{value: msg.value}(minBuyAmount, path, msg.sender, block.timestamp);
         // 不能盲目相信第三方合约，需要自行判断
-        require(IERC20(buyToken).balanceOf(msg.sender) >= amount + minBuyAmount);
+        require(IERC20(buyToken).balanceOf(msg.sender) >= amount + minBuyAmount, "dex: swap failed");
     }
 
     function buyETH(address sellToken,uint256 sellAmount,uint256 minBuyAmount) external returns (uint[] memory amounts) {
