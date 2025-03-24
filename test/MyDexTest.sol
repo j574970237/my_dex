@@ -29,7 +29,7 @@ contract MyDexTest is Test {
         rnt = RNT(0x08677Af0A7F54fE2a190bb1F75DE682fe596317e);
         weth = WETH(payable(0x1E53bea57Dd5dDa7bFf1a1180a2f64a5c9e222f5));
         vm.prank(owner);
-        dex = new MyDex(address(factory), address(router), address(weth));
+        dex = new MyDex(address(factory), address(router));
     }
 
     /**
